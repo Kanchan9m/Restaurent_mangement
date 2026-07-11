@@ -11,6 +11,6 @@ public class Roles {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20, name = "role_name")
-    private AppRole roleName
-    private String name;
+    private RoleType rolename;
+
 }
