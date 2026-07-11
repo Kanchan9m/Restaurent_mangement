@@ -1,15 +1,21 @@
 package com.example.project.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
 public class Restaurents {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int restaurant_id;
+
     private String restaurant_name;
     private String address;
     private int phone;
     private Boolean approved;
-    private int owner_id;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
 }
