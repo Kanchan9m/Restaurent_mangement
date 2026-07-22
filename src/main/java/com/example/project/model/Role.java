@@ -1,16 +1,23 @@
 package com.example.project.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-public class Roles {
+@Data
+@NoArgsConstructor
+@Table(name = "roles")
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int role_id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20, name = "role_name")
-    private RoleType rolename;
+    private RoleType roleName;
+
+    private String permission;
 
 }

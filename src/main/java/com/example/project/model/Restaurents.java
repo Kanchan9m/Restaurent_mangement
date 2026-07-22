@@ -7,11 +7,11 @@ public class Restaurents {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int restaurant_id;
+    private Long restaurant_id;
 
     private String restaurant_name;
     private String address;
-    private int phone;
+    private String phone;
     private Boolean approved;
 
     @ManyToOne
