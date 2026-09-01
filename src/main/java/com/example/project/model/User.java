@@ -1,12 +1,14 @@
 package com.example.project.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "users",
         uniqueConstraints = {
@@ -25,13 +27,24 @@ public class User {
     private String password;
     private String phone;
 
-//    @ManyToOne
-//    @JoinColumn(name = "role_id")
-//    private Role role;
+    @Column(nullable = false)
+    private Boolean active;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    private Boolean emailVerified;
+
+    @Column(name = "is_admin", nullable = false)
+    private Boolean isAdmin = false;
+
+    @OneToMany(mappedBy = "user")
+//    @ToString.Exclude
+    private List<UserRestaurant> userRestaurants;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RefreshToken> refreshTokens = new ArrayList<>();
 
     public User(String userName, String email, String password) {
         this.userName = userName;

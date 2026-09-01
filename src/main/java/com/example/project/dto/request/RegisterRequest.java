@@ -1,4 +1,4 @@
-package com.example.project.dto;
+package com.example.project.dto.request;
 
 import com.example.project.model.RoleType;
 import jakarta.validation.constraints.Email;

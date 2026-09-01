@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -18,6 +21,18 @@ public class Role {
     @Column(length = 20, name = "role_name")
     private RoleType roleName;
 
-    private String permission;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "role_permissions",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private Set<Permission> permissions;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private List<UserRestaurant> userRestaurants;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private List<RolePermission> rolePermissions;
 
 }
